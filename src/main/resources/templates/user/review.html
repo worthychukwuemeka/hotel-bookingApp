@@ -2,9 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
+
+    <title>My Reviews</title>
+
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logout-button {
+            background-color: #3498db;
+            color: #ecf0f1;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .review-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 2rem;
+        }
+
+        .review-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            padding: 1.5rem;
+            width: 300px;
+        }
+
+        .review-details {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
+<div class="header">
+    <h1>My Reviews</h1>
+    <button class="logout-button" onclick="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
+</div>
 
+<div class="review-list" id="reviewList">
+    <!-- Review cards will be dynamically added here -->
+</div>
+
+<script>
+    // Fetch and display user's reviews
+    async function fetchReviews() {
+        try {
+            const response = await fetch('/api/reviews/user');
+            const data = await response.json();
+
+            const reviewListContainer = document.getElementById('reviewList');
+            reviewListContainer.innerHTML = '';
+
+            data.forEach(review => {
+                const reviewCard = createReviewCard(review);
+                reviewListContainer.appendChild(reviewCard);
+            });
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+        }
+    }
+
+    // Function to create review card HTML
+    function createReviewCard(review) {
+        const reviewCard = document.createElement('div');
+        reviewCard.classList.add('review-card');
+
+        const reviewDetails = document.createElement('div');
+        reviewDetails.classList.add('review-details');
+        reviewDetails.textContent = `Review ID: ${review.id}, Hotel: ${review.hotelName}, Rating: ${review.rating}, Comment: ${review.comment}`;
+
+        // Append elements to the review card
+        reviewCard.appendChild(reviewDetails);
+
+        return reviewCard;
+    }
+
+    // Function to logout
+    function logout() {
+        // Add your logout logic here, e.g., redirect to the login page
+        window.location.href = '/login.html';
+    }
+
+    // Initial fetch when the page loads
+    fetchReviews();
+</script>
 </body>
 </html>

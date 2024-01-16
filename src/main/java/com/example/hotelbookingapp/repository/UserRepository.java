@@ -1,8 +1,11 @@
 package com.example.hotelbookingapp.repository;
 
-import com.example.hotelbookingapp.model.Hotel;
+import com.example.hotelbookingapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<Hotel, Long> {
-
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }
+

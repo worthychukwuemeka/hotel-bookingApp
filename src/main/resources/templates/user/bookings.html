@@ -2,9 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
+
+    <title>My Bookings</title>
+
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logout-button {
+            background-color: #3498db;
+            color: #ecf0f1;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .booking-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 2rem;
+        }
+
+        .booking-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            padding: 1.5rem;
+            width: 300px;
+        }
+
+        .booking-details {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
+<div class="header">
+    <h1>My Bookings</h1>
+    <button class="logout-button" onclick="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
+</div>
 
+<div class="booking-list" id="bookingList">
+    <!-- Booking cards will be dynamically added here -->
+</div>
+
+<script>
+    // Fetch and display user's bookings
+    async function fetchBookings() {
+        try {
+            const response = await fetch('/api/bookings/user');
+            const data = await response.json();
+
+            const bookingListContainer = document.getElementById('bookingList');
+            bookingListContainer.innerHTML = '';
+
+            data.forEach(booking => {
+                const bookingCard = createBookingCard(booking);
+                bookingListContainer.appendChild(bookingCard);
+            });
+        } catch (error) {
+            console.error('Error fetching bookings:', error);
+        }
+    }
+
+    // Function to create booking card HTML
+    function createBookingCard(booking) {
+        const bookingCard = document.createElement('div');
+        bookingCard.classList.add('booking-card');
+
+        const bookingDetails = document.createElement('div');
+        bookingDetails.classList.add('booking-details');
+        bookingDetails.textContent = `Booking ID: ${booking.id}, Room: ${booking.roomName}, Check-in: ${booking.checkIn}, Check-out: ${booking.checkOut}`;
+
+        // Append elements to the booking card
+        bookingCard.appendChild(bookingDetails);
+
+        return bookingCard;
+    }
+
+    // Function to logout
+    function logout() {
+        // Add your logout logic here, e.g., redirect to the login page
+        window.location.href = '/login.html';
+    }
+
+    // Initial fetch when the page loads
+    fetchBookings();
+</script>
 </body>
 </html>
