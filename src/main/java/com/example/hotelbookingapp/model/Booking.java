@@ -1,6 +1,7 @@
 package com.example.hotelbookingapp.model;
 
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bookings")
@@ -24,12 +25,22 @@ public class Booking {
     @Column(nullable = false)
     private String checkOutDate;
 
-    // Additional fields
     private boolean isCancelled;
 
-// Other fields and methods...
+    public Booking() {
+        // Default constructor
+    }
+
+    public Booking(User user, Room room, String checkInDate, String checkOutDate, boolean isCancelled) {
+        this.user = user;
+        this.room = room;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.isCancelled = isCancelled;
+    }
 
     // Getters and setters...
+
     public Long getId() {
         return id;
     }
@@ -78,4 +89,33 @@ public class Booking {
         isCancelled = cancelled;
     }
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", user=" + user +
+                ", room=" + room +
+                ", checkInDate='" + checkInDate + '\'' +
+                ", checkOutDate='" + checkOutDate + '\'' +
+                ", isCancelled=" + isCancelled +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, room, checkInDate, checkOutDate, isCancelled);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Booking booking = (Booking) obj;
+        return Objects.equals(id, booking.id) &&
+                Objects.equals(user, booking.user) &&
+                Objects.equals(room, booking.room) &&
+                Objects.equals(checkInDate, booking.checkInDate) &&
+                Objects.equals(checkOutDate, booking.checkOutDate) &&
+                Objects.equals(isCancelled, booking.isCancelled);
+    }
 }
