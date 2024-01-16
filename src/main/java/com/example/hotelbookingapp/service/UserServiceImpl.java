@@ -1,19 +1,22 @@
 package com.example.hotelbookingapp.service;
 
 // UserServiceImpl.java
+import com.example.hotelbookingapp.model.Hotel;
+import com.example.hotelbookingapp.model.User;
+import com.example.hotelbookingapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public abstract class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Hotel> getAllUsers() {
         return userRepository.findAll();
     }
 

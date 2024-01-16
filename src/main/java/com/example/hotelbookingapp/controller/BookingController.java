@@ -1,6 +1,7 @@
 package com.example.hotelbookingapp.controller;
 
 import com.example.hotelbookingapp.model.Booking;
+import com.example.hotelbookingapp.model.Hotel;
 import com.example.hotelbookingapp.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,12 @@ public class BookingController {
     private BookingService bookingService;
 
     @GetMapping
-    public List<Booking> getAllBookings() {
+    public List<Hotel> getAllBookings() {
         return bookingService.getAllBookings();
     }
 
     @GetMapping("/{id}")
-    public Booking getBookingById(@PathVariable Long id) {
+    public Hotel getBookingById(@PathVariable Long id) {
         return bookingService.getBookingById(id);
     }
 

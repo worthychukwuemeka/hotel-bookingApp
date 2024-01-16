@@ -1,24 +1,27 @@
 package com.example.hotelbookingapp.service;
 
 // BookingServiceImpl.java
+import com.example.hotelbookingapp.model.Booking;
+import com.example.hotelbookingapp.model.Hotel;
+import com.example.hotelbookingapp.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BookingServiceImpl implements BookingService {
+public abstract class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
 
     @Override
-    public List<Booking> getAllBookings() {
+    public List<Hotel> getAllBookings() {
         return bookingRepository.findAll();
     }
 
     @Override
-    public Booking getBookingById(Long id) {
+    public Hotel getBookingById(Long id) {
         return bookingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Booking not found with id: " + id));
     }

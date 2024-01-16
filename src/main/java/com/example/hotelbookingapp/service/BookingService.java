@@ -1,13 +1,16 @@
 package com.example.hotelbookingapp.service;
 
 // BookingService.java
+import com.example.hotelbookingapp.model.Booking;
+import com.example.hotelbookingapp.model.Hotel;
+
 import java.util.List;
 
 public interface BookingService {
 
-    List<Booking> getAllBookings();
+    List<Hotel> getAllBookings();
 
-    Booking getBookingById(Long id);
+    Hotel getBookingById(Long id);
 
     Booking createBooking(Booking booking);
 
