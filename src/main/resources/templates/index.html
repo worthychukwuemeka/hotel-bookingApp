@@ -6,11 +6,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
     <title>Hotel Booking Website</title>
 
-    <!-- Add this in the head section of your HTML -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-GLhlTQ8i6wao0VsED92vHkpWUEAIj6EMDQl4eyYnqIxNqZ6d5CZ8sF76uUwQ"
-          crossorigin="anonymous">
+    <!-- Fontawesome link -->
 
-    <!-- ... (previous HTML code) -->
 
     <style>
         body {
@@ -99,16 +96,14 @@
         }
     </style>
 
-    <!-- ... (remaining HTML code) -->
-
 </head>
 <body>
 <div class="header">
     <div class="welcome-message">Welcome to our Hotel Booking Website</div>
     <div class="search-bar">
-        <label for="location"><i class="fas fa-search"></i></label>
+        <label for="location"></label>
         <input type="text" id="location" placeholder="Search hotels by location">
-        <button onclick="searchHotels()">Search</button>
+        <button onclick="searchHotels()"><i class="fas fa-search"></i></button>
     </div>
 </div>
 
@@ -129,28 +124,7 @@
             .then(response => response.json())
             .then(data => {
                 data.hotels.forEach(hotel => {
-                    const hotelCard = document.createElement('div');
-                    hotelCard.classList.add('hotel-card');
-
-                    const hotelName = document.createElement('div');
-                    hotelName.classList.add('hotel-name');
-                    hotelName.textContent = hotel.name;
-
-                    const hotelDescription = document.createElement('div');
-                    hotelDescription.classList.add('hotel-description');
-                    hotelDescription.textContent = hotel.description;
-
-                    const hotelLink = document.createElement('a');
-                    hotelLink.classList.add('hotel-link');
-                    hotelLink.href = '#'; // Add the actual link when details are available
-                    hotelLink.textContent = 'View Details';
-
-                    // Append elements to the hotel card
-                    hotelCard.appendChild(hotelName);
-                    hotelCard.appendChild(hotelDescription);
-                    hotelCard.appendChild(hotelLink);
-
-                    // Append the hotel card to the list container
+                    const hotelCard = createHotelCard(hotel);
                     hotelListContainer.appendChild(hotelCard);
                 });
             })
@@ -159,34 +133,55 @@
             });
     }
 
+    function createHotelCard(hotel) {
+        const hotelCard = document.createElement('div');
+        hotelCard.classList.add('hotel-card');
+
+        const hotelName = document.createElement('div');
+        hotelName.classList.add('hotel-name');
+        hotelName.textContent = hotel.name;
+
+        const hotelLocation = document.createElement('div');
+        hotelLocation.classList.add('hotel-location');
+        hotelLocation.textContent = `Location: ${hotel.location}`;
+
+        const hotelRating = document.createElement('div');
+        hotelRating.classList.add('hotel-rating');
+        hotelRating.textContent = `Rating: ${hotel.rating}`;
+
+        const hotelDescription = document.createElement('div');
+        hotelDescription.classList.add('hotel-description');
+        hotelDescription.textContent = hotel.description;
+
+        const addToFavoritesButton = document.createElement('button');
+        addToFavoritesButton.classList.add('add-to-favorites');
+        addToFavoritesButton.textContent = 'Add to Favorites';
+        addToFavoritesButton.addEventListener('click', () => addToFavorites(hotel.id));
+
+        // Append elements to the hotel card
+        hotelCard.appendChild(hotelName);
+        hotelCard.appendChild(hotelLocation);
+        hotelCard.appendChild(hotelRating);
+        hotelCard.appendChild(hotelDescription);
+        hotelCard.appendChild(addToFavoritesButton);
+
+        return hotelCard;
+    }
+
+    function addToFavorites(hotelId) {
+        // Implement logic to add the hotel to the favorites list
+        // You can make a request to your backend or handle it client-side
+        console.log(`Added hotel with ID ${hotelId} to favorites`);
+    }
+
+    // Existing code for fetching and displaying hotels
     fetch('/api/hotels/get-meta-data')
         .then(response => response.json())
         .then(data => {
             const hotelListContainer = document.getElementById('hotelList');
 
             data.hotels.forEach(hotel => {
-                const hotelCard = document.createElement('div');
-                hotelCard.classList.add('hotel-card');
-
-                const hotelName = document.createElement('div');
-                hotelName.classList.add('hotel-name');
-                hotelName.textContent = hotel.name;
-
-                const hotelDescription = document.createElement('div');
-                hotelDescription.classList.add('hotel-description');
-                hotelDescription.textContent = hotel.description;
-
-                const hotelLink = document.createElement('a');
-                hotelLink.classList.add('hotel-link');
-                hotelLink.href = '#'; // Add the actual link when details are available
-                hotelLink.textContent = 'View Details';
-
-                // Append elements to the hotel card
-                hotelCard.appendChild(hotelName);
-                hotelCard.appendChild(hotelDescription);
-                hotelCard.appendChild(hotelLink);
-
-                // Append the hotel card to the list container
+                const hotelCard = createHotelCard(hotel);
                 hotelListContainer.appendChild(hotelCard);
             });
         })
@@ -195,9 +190,10 @@
         });
 </script>
 
+
 <!-- ... -->
 
-
+<script src="https://kit.fontawesome.com/08d9b1877f.js" crossorigin="anonymous"></script>
 <!-- ... -->
 
 </body>
