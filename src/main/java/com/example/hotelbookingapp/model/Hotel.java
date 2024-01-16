@@ -1,6 +1,7 @@
 package com.example.hotelbookingapp.model;
 
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "hotels")
@@ -34,13 +35,28 @@ public class Hotel {
     @Column(nullable = false)
     private int starRating;
 
-    // Additional fields
     @Column(nullable = false)
     private String description;
 
-// Other fields and methods...
+    public Hotel() {
+        // Default constructor
+    }
+
+    public Hotel(String name, String address, String city, String country, String postalCode,
+                 String phoneNumber, String website, int starRating, String description) {
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.starRating = starRating;
+        this.description = description;
+    }
 
     // Getters and setters...
+
     public Long getId() {
         return id;
     }
@@ -121,4 +137,41 @@ public class Hotel {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", website='" + website + '\'' +
+                ", starRating=" + starRating +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, city, country, postalCode, phoneNumber, website, starRating, description);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Hotel hotel = (Hotel) obj;
+        return Objects.equals(id, hotel.id) &&
+                Objects.equals(name, hotel.name) &&
+                Objects.equals(address, hotel.address) &&
+                Objects.equals(city, hotel.city) &&
+                Objects.equals(country, hotel.country) &&
+                Objects.equals(postalCode, hotel.postalCode) &&
+                Objects.equals(phoneNumber, hotel.phoneNumber) &&
+                Objects.equals(website, hotel.website) &&
+                starRating == hotel.starRating &&
+                Objects.equals(description, hotel.description);
+    }
 }
