@@ -1,143 +1,68 @@
 package com.example.hotelbookingapp.model;
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.Objects;
+
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@NotEmpty(message = "Name cannot be empty")
-private String name;
+    @Column(nullable = false)
+    private String firstName;
 
-@Email(message = "Please provide a valid email address")
-private String email;
+    @Column(nullable = false)
+    private String lastName;
 
-@NotNull(message = "Age cannot be null")
-@Min(value = 0, message = "Age cannot be negative")
-private Integer age;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-@NotNull(message = "Check-in date cannot be null")
-private LocalDate checkInDate;
+    // Additional fields
+    private String password;
 
-@NotNull(message = "Check-out date cannot be null")
-private LocalDate checkOutDate;
+// Other fields and methods...
 
-@NotNull(message = "Number of guests cannot be null")
-@Min(value = 1, message = "Number of guests must be at least 1")
-private Integer numberOfGuests;
+    // Getters and setters...
+    public Long getId() {
+        return id;
+    }
 
-// Constructors
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public User() {
-// Default constructor
-}
+    public String getFirstName() {
+        return firstName;
+    }
 
-public User(String name, String email, Integer age, LocalDate checkInDate, LocalDate checkOutDate, Integer numberOfGuests) {
-this.name = name;
-this.email = email;
-this.age = age;
-this.checkInDate = checkInDate;
-this.checkOutDate = checkOutDate;
-this.numberOfGuests = numberOfGuests;
-}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-// Getters and setters
+    public String getLastName() {
+        return lastName;
+    }
 
-public Long getId() {
-return id;
-}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-public void setId(Long id) {
-this.id = id;
-}
+    public String getEmail() {
+        return email;
+    }
 
-public String getName() {
-return name;
-}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-public void setName(String name) {
-this.name = name;
-}
+    public String getPassword() {
+        return password;
+    }
 
-public String getEmail() {
-return email;
-}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-public void setEmail(String email) {
-this.email = email;
-}
-
-public Integer getAge() {
-return age;
-}
-
-public void setAge(Integer age) {
-this.age = age;
-}
-
-public LocalDate getCheckInDate() {
-return checkInDate;
-}
-
-public void setCheckInDate(LocalDate checkInDate) {
-this.checkInDate = checkInDate;
-}
-
-public LocalDate getCheckOutDate() {
-return checkOutDate;
-}
-
-public void setCheckOutDate(LocalDate checkOutDate) {
-this.checkOutDate = checkOutDate;
-}
-
-public Integer getNumberOfGuests() {
-return numberOfGuests;
-}
-
-public void setNumberOfGuests(Integer numberOfGuests) {
-this.numberOfGuests = numberOfGuests;
-}
-
-// toString, hashCode, and equals methods
-
-@Override
-public String toString() {
-return "User{" +
-"id=" + id +
-", name='" + name + '\'' +
-", email='" + email + '\'' +
-", age=" + age +
-", checkInDate=" + checkInDate +
-", checkOutDate=" + checkOutDate +
-", numberOfGuests=" + numberOfGuests +
-'}';
-}
-
-@Override
-public int hashCode() {
-return Objects.hash(id, name, email, age, checkInDate, checkOutDate, numberOfGuests);
-}
-
-@Override
-public boolean equals(Object o) {
-if (this == o) return true;
-if (o == null || getClass() != o.getClass()) return false;
-User user = (User) o;
-return age == user.age &&
-Objects.equals(id, user.id) &&
-Objects.equals(name, user.name) &&
-Objects.equals(email, user.email) &&
-Objects.equals(checkInDate, user.checkInDate) &&
-Objects.equals(checkOutDate, user.checkOutDate) &&
-Objects.equals(numberOfGuests, user.numberOfGuests);
-}
 }
