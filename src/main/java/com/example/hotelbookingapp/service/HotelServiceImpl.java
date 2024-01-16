@@ -1,4 +1,4 @@
-/* package com.example.hotelbookingapp.service;
+package com.example.hotelbookingapp.service;
 
 import com.example.hotelbookingapp.model.Hotel;  // Import the Hotel class
 import com.example.hotelbookingapp.repository.HotelRepository;
@@ -37,7 +37,6 @@ public abstract class HotelServiceImpl implements HotelService {
         Hotel existingHotel = getHotelById(id);
 
         // Update the existing hotel
-        existingHotel.clone();
         existingHotel.setAddress(hotel.getAddress());
         existingHotel.setCity(hotel.getCity());
         existingHotel.setCountry(hotel.getCountry());
@@ -55,4 +54,4 @@ public abstract class HotelServiceImpl implements HotelService {
         hotelRepository.deleteById(id);
     }
 }
-*/
+

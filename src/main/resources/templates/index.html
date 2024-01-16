@@ -111,26 +111,27 @@
     <!-- Hotel cards will be dynamically added here -->
 </div>
 
+
 <script>
-    function searchHotels() {
+    async function searchHotels() {
         const locationInput = document.getElementById('location').value;
 
         // Clear existing hotel cards
         const hotelListContainer = document.getElementById('hotelList');
         hotelListContainer.innerHTML = '';
 
-        // Make a request to your backend for hotel search based on the location
-        fetch(`/api/hotels/search?location=${encodeURIComponent(locationInput)}`)
-            .then(response => response.json())
-            .then(data => {
-                data.hotels.forEach(hotel => {
-                    const hotelCard = createHotelCard(hotel);
-                    hotelListContainer.appendChild(hotelCard);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching hotel data:', error);
+        try {
+            // Make a request to your backend for hotel search based on the location
+            const response = await fetch(`/api/rapid-api/get-meta-data?location=${encodeURIComponent(locationInput)}`);
+            const data = await response.json();
+
+            data.hotels.forEach(hotel => {
+                const hotelCard = createHotelCard(hotel);
+                hotelListContainer.appendChild(hotelCard);
             });
+        } catch (error) {
+            console.error('Error fetching hotel data:', error);
+        }
     }
 
     function createHotelCard(hotel) {
@@ -169,12 +170,28 @@
     }
 
     function addToFavorites(hotelId) {
-        // Implement logic to add the hotel to the favorites list
-        // You can make a request to your backend or handle it client-side
-        console.log(`Added hotel with ID ${hotelId} to favorites`);
+        // Make a request to your backend to add the hotel to favorites
+        fetch(`/api/favorites/add?hotelId=${hotelId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Added hotel with ID ${hotelId} to favorites`);
+                    // Optionally update UI to indicate successful addition
+                } else {
+                    console.error('Failed to add hotel to favorites');
+                    // Optionally handle failure (e.g., show an error message)
+                }
+            })
+            .catch(error => {
+                console.error('Error adding hotel to favorites:', error);
+            });
     }
 
-    // Existing code for fetching and displaying hotels
+    // Initial fetch for displaying hotels on page load
     fetch('/api/hotels/get-meta-data')
         .then(response => response.json())
         .then(data => {
@@ -189,6 +206,9 @@
             console.error('Error fetching hotel data:', error);
         });
 </script>
+
+<!-- ... -->
+
 
 
 <!-- ... -->

@@ -1,6 +1,6 @@
 package com.example.hotelbookingapp.model;
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
 @Entity
@@ -10,6 +10,8 @@ public class Room {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 
+@lombok.Setter
+@lombok.Getter
 @ManyToOne
 @JoinColumn(name = "hotel_id", nullable = false)
 private Hotel hotel;
@@ -40,15 +42,7 @@ public void setId(Long id) {
 this.id = id;
 }
 
-public Hotel getHotel() {
-return hotel;
-}
-
-public void setHotel(Hotel hotel) {
-this.hotel = hotel;
-}
-
-public String getRoomNumber() {
+    public String getRoomNumber() {
 return roomNumber;
 }
 

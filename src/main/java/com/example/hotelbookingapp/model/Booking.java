@@ -1,7 +1,12 @@
 package com.example.hotelbookingapp.model;
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDate;
 import java.util.Objects;
 

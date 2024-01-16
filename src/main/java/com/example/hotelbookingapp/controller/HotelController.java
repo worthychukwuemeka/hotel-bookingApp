@@ -1,4 +1,4 @@
-package main.java.com.example.hotelbookingapp.controller;
+package com.example.hotelbookingapp.controller;
 
 import com.example.hotelbookingapp.model.Hotel;
 import com.example.hotelbookingapp.service.HotelService;
