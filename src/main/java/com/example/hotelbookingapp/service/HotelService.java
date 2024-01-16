@@ -1,5 +1,6 @@
 package com.example.hotelbookingapp.service;
 
+<<<<<<< HEAD
 import com.example.hotelbookingapp.model.Hotel;
 
 import java.util.List;
@@ -17,3 +18,7 @@ public interface HotelService {
     void deleteHotel(Long id);
 }
 
+=======
+public interface HotelService {
+}
+>>>>>>> 049831fdfc3c6d8b615039f85df2fa77a37f1246
