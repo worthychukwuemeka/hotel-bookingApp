@@ -1,41 +1,41 @@
 package com.example.hotelbookingapp.controller;
 
-import com.example.hotelbookingapp.model.User;
-import com.example.hotelbookingapp.service.UserService;
+import com.example.hotelbookingapp.model.Room;
+import com.example.hotelbookingapp.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/rooms")
+public class RoomController {
 
     @Autowired
-    private UserService userService;
+    private RoomService roomService;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<Room> getAllRooms() {
+        return roomService.getAllRooms();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public Room getRoomById(@PathVariable Long id) {
+        return roomService.getRoomById(id);
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public Room createRoom(@RequestBody Room room) {
+        return roomService.createRoom(room);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public Room updateRoom(@PathVariable Long id, @RequestBody Room room) {
+        return roomService.updateRoom(id, room);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteRoom(@PathVariable Long id) {
+        roomService.deleteRoom(id);
     }
 }
