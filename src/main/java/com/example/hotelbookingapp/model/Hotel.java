@@ -1,165 +1,124 @@
 package com.example.hotelbookingapp.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
-import java.util.Objects;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "hotels")
 public class Hotel {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@NotEmpty(message = "Name cannot be empty")
-private String name;
+    @Column(nullable = false)
+    private String name;
 
-@NotEmpty(message = "Address cannot be empty")
-private String address;
+    @Column(nullable = false)
+    private String address;
 
-@NotEmpty(message = "City cannot be empty")
-private String city;
+    @Column(nullable = false)
+    private String city;
 
-private String country;
+    @Column(nullable = false)
+    private String country;
 
-@NotEmpty(message = "Postal Code cannot be empty")
-private String postalCode;
+    @Column(nullable = false)
+    private String postalCode;
 
-private String phoneNumber;
+    @Column(nullable = false)
+    private String phoneNumber;
 
-private String website;
+    @Column(nullable = false)
+    private String website;
 
-private int starRating; // Example: 1 to 5
+    @Column(nullable = false)
+    private int starRating;
 
-// Constructors
+    // Additional fields
+    @Column(nullable = false)
+    private String description;
 
-public Hotel() {
-// Default constructor
-}
+// Other fields and methods...
 
-public Hotel(String name, String address, String city, String country, String postalCode,
-String phoneNumber, String website, int starRating) {
-this.name = name;
-this.address = address;
-this.city = city;
-this.country = country;
-this.postalCode = postalCode;
-this.phoneNumber = phoneNumber;
-this.website = website;
-this.starRating = starRating;
-}
+    // Getters and setters...
+    public Long getId() {
+        return id;
+    }
 
-// Getters and setters
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public Long getId() {
-return id;
-}
+    public String getName() {
+        return name;
+    }
 
-public void setId(Long id) {
-this.id = id;
-}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-public String getName() {
-return name;
-}
+    public String getAddress() {
+        return address;
+    }
 
-public void setName(String name) {
-this.name = name;
-}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-public String getAddress() {
-return address;
-}
+    public String getCity() {
+        return city;
+    }
 
-public void setAddress(String address) {
-this.address = address;
-}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-public String getCity() {
-return city;
-}
+    public String getCountry() {
+        return country;
+    }
 
-public void setCity(String city) {
-this.city = city;
-}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-public String getCountry() {
-return country;
-}
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-public void setCountry(String country) {
-this.country = country;
-}
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 
-public String getPostalCode() {
-return postalCode;
-}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-public void setPostalCode(String postalCode) {
-this.postalCode = postalCode;
-}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-public String getPhoneNumber() {
-return phoneNumber;
-}
+    public String getWebsite() {
+        return website;
+    }
 
-public void setPhoneNumber(String phoneNumber) {
-this.phoneNumber = phoneNumber;
-}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-public String getWebsite() {
-return website;
-}
+    public int getStarRating() {
+        return starRating;
+    }
 
-public void setWebsite(String website) {
-this.website = website;
-}
+    public void setStarRating(int starRating) {
+        this.starRating = starRating;
+    }
 
-public int getStarRating() {
-return starRating;
-}
+    public String getDescription() {
+        return description;
+    }
 
-public void setStarRating(int starRating) {
-this.starRating = starRating;
-}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-// toString, hashCode, and equals methods
-
-@Override
-public String toString() {
-return "Hotel{" +
-"id=" + id +
-", name='" + name + '\'' +
-", address='" + address + '\'' +
-", city='" + city + '\'' +
-", country='" + country + '\'' +
-", postalCode='" + postalCode + '\'' +
-", phoneNumber='" + phoneNumber + '\'' +
-", website='" + website + '\'' +
-", starRating=" + starRating +
-'}';
-}
-
-@Override
-public int hashCode() {
-return Objects.hash(id, name, address, city, country, postalCode, phoneNumber, website, starRating);
-}
-
-@Override
-public boolean equals(Object o) {
-if (this == o) return true;
-if (o == null || getClass() != o.getClass()) return false;
-Hotel hotel = (Hotel) o;
-return starRating == hotel.starRating &&
-Objects.equals(id, hotel.id) &&
-Objects.equals(name, hotel.name) &&
-Objects.equals(address, hotel.address) &&
-Objects.equals(city, hotel.city) &&
-Objects.equals(country, hotel.country) &&
-Objects.equals(postalCode, hotel.postalCode) &&
-Objects.equals(phoneNumber, hotel.phoneNumber) &&
-Objects.equals(website, hotel.website);
-}
 }
