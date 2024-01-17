@@ -1,58 +1,33 @@
 package com.example.hotelbookingapp.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "hotels")
-public class Hotel {
+@Table(name = "rooms")
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String roomNumber;
 
-    @Column(nullable = false)
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
 
-    @Column(nullable = false)
-    private String city;
+    private boolean isBooked;
 
-    @Column(nullable = false)
-    private String country;
-
-    @Column(nullable = false)
-    private String postalCode;
-
-    @Column(nullable = false)
-    private String phoneNumber;
-
-    @Column(nullable = false)
-    private String website;
-
-    @Column(nullable = false)
-    private int starRating;
-
-    @Column(nullable = false)
-    private String description;
-
-    public Hotel() {
+    public Room() {
         // Default constructor
     }
 
-    public Hotel(String name, String address, String city, String country, String postalCode,
-                 String phoneNumber, String website, int starRating, String description) {
-        this.name = name;
-        this.address = address;
-        this.city = city;
-        this.country = country;
-        this.postalCode = postalCode;
-        this.phoneNumber = phoneNumber;
-        this.website = website;
-        this.starRating = starRating;
-        this.description = description;
+    public Room(String roomNumber, Hotel hotel, boolean isBooked) {
+        this.roomNumber = roomNumber;
+        this.hotel = hotel;
+        this.isBooked = isBooked;
     }
 
     // Getters and setters...
@@ -65,114 +40,53 @@ public class Hotel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
-    public String getCity() {
-        return city;
+    public boolean isBooked() {
+        return isBooked;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public int getStarRating() {
-        return starRating;
-    }
-
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBooked(boolean booked) {
+        isBooked = booked;
     }
 
     @Override
     public String toString() {
-        return "Hotel{" +
+        return "Room{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", website='" + website + '\'' +
-                ", starRating=" + starRating +
-                ", description='" + description + '\'' +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", hotel=" + hotel +
+                ", isBooked=" + isBooked +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, city, country, postalCode, phoneNumber, website, starRating, description);
+        return Objects.hash(id, roomNumber, hotel, isBooked);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Hotel hotel = (Hotel) obj;
-        return Objects.equals(id, hotel.id) &&
-                Objects.equals(name, hotel.name) &&
-                Objects.equals(address, hotel.address) &&
-                Objects.equals(city, hotel.city) &&
-                Objects.equals(country, hotel.country) &&
-                Objects.equals(postalCode, hotel.postalCode) &&
-                Objects.equals(phoneNumber, hotel.phoneNumber) &&
-                Objects.equals(website, hotel.website) &&
-                starRating == hotel.starRating &&
-                Objects.equals(description, hotel.description);
+        Room room = (Room) obj;
+        return Objects.equals(id, room.id) &&
+                Objects.equals(roomNumber, room.roomNumber) &&
+                Objects.equals(hotel, room.hotel) &&
+                Objects.equals(isBooked, room.isBooked);
     }
-
 }
